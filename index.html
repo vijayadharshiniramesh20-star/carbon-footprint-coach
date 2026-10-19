@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarbonWise AI | SDG 13</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-mark">↗</span><span>carbon<span class="brand-light">wise</span><small>AI CLIMATE COACH</small></span></a>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-item active" href="#overview"><span>▦</span> Overview</a>
+    <a class="nav-item" href="#calculator"><span>◉</span> Footprint calculator</a>
+    <a class="nav-item" href="#simulator"><span>⌁</span> Future simulator</a>
+    <a class="nav-item" href="#recommendations"><span>✧</span> AI action plan</a>
+    <div class="sidebar-bottom">
+      <div class="sdg-card"><div class="sdg-number">13</div><strong>CLIMATE ACTION</strong><p>Take urgent action to combat climate change and its impacts.</p></div>
+      <p class="sidebar-foot">A student-built sustainability prototype</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">PERSONAL SUSTAINABILITY</div><h1>Carbon dashboard</h1><p class="subtitle">Understand your impact. Make changes that matter.</p></div>
+      <div class="profile"><div class="avatar">🌿</div><div><strong>Eco explorer</strong><small>Climate action starts here</small></div></div>
+    </header>
+
+    <section id="overview" class="hero">
+      <div class="hero-copy"><span class="pill"><span class="pulse"></span> YOUR CLIMATE SNAPSHOT</span><h2>Small changes.<br><em>Lasting impact.</em></h2><p>Estimate your monthly footprint, test lifestyle changes, and get a practical plan to reduce your emissions.</p><a class="hero-link" href="#calculator">Calculate my footprint <span>↘</span></a></div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="planet">🌎</div><div class="leaf leaf-one">✦</div><div class="leaf leaf-two">✧</div><div class="art-label"><span class="dot"></span> One planet. Many possibilities.</div></div>
+    </section>
+
+    <section class="metrics">
+      <article class="metric-card"><div class="metric-top"><span>Estimated monthly footprint</span><span class="metric-icon">◎</span></div><div class="metric-value"><span id="totalMetric">—</span><small>kg CO₂e</small></div><div class="metric-note">Based on your inputs</div></article>
+      <article class="metric-card"><div class="metric-top"><span>Potential monthly reduction</span><span class="metric-icon green">↘</span></div><div class="metric-value"><span id="savedMetric">—</span><small>kg CO₂e</small></div><div class="metric-note">Scenario estimate, not a guarantee</div></article>
+      <article class="metric-card"><div class="metric-top"><span>Scenario improvement</span><span class="metric-icon purple">✧</span></div><div class="metric-value"><span id="percentMetric">—</span><small>%</small></div><div class="metric-note">Compared with current inputs</div></article>
+    </section>
+
+    <div class="section-heading"><div><div class="eyebrow">YOUR PERSONAL DATA</div><h2>Build your footprint profile</h2></div><span class="section-chip">01 / CALCULATE</span></div>
+    <section id="calculator" class="content-grid">
+      <form id="carbonForm" class="panel form-panel">
+        <div class="panel-title"><div class="panel-symbol">⌁</div><div><h3>Monthly lifestyle inputs</h3><p>Enter approximate monthly totals.</p></div></div>
+        <label for="transport">Main transport type</label>
+        <select id="transport" name="transport"><option value="car">Car</option><option value="bike">Petrol two-wheeler</option><option value="bus">Bus</option><option value="train">Train</option></select>
+        <div class="field-row"><label for="travel_km">Travel distance <span>km / month</span></label><input id="travel_km" name="travel_km" type="number" min="0" max="10000" value="300" required></div>
+        <div class="field-row"><label for="electricity_kwh">Electricity used <span>kWh / month</span></label><input id="electricity_kwh" name="electricity_kwh" type="number" min="0" max="100000" value="120" required></div>
+        <div class="field-row"><label for="meat_meals">Meat-based meals <span>meals / month</span></label><input id="meat_meals" name="meat_meals" type="number" min="0" max="300" value="12" required></div>
+        <button class="primary-btn" type="submit"><span>✧</span> Calculate my footprint <span class="btn-arrow">→</span></button>
+        <p class="form-message" id="formMessage" role="status"></p>
+      </form>
+      <div class="panel chart-panel">
+        <div class="panel-title"><div><h3>Where your impact comes from</h3><p>Estimated monthly emissions by category</p></div><span class="chart-tag">CO₂e</span></div>
+        <div class="chart-wrap"><canvas id="breakdownChart" aria-label="Emissions by category"></canvas><div id="chartEmpty" class="chart-empty">Calculate your footprint to see your breakdown.</div></div>
+        <div class="legend-row"><span><i class="legend-dot transport-dot"></i>Transport</span><span><i class="legend-dot energy-dot"></i>Home energy</span><span><i class="legend-dot food-dot"></i>Food</span></div>
+      </div>
+    </section>
+
+    <div class="section-heading" id="simulator"><div><div class="eyebrow">INNOVATION FEATURE</div><h2>Carbon Future Simulator</h2><p class="subtitle">Explore a possible future before changing your habits.</p></div><span class="section-chip">02 / SIMULATE</span></div>
+    <section class="simulator panel">
+      <div class="sim-copy"><div class="sim-icon">⌁</div><h3>What if you made a few changes?</h3><p>Our scenario model tests three sample actions: reduce travel emissions by 20%, electricity use by 10%, and replace up to eight meat-based meals with lower-impact meals.</p><div class="sim-stat"><span class="sim-stat-icon">↘</span><div><strong id="scenarioSaved">— kg CO₂e</strong><small>Potential monthly emissions avoided</small></div></div></div>
+      <div class="sim-result"><div class="comparison"><div><small>CURRENT ESTIMATE</small><strong id="currentScenario">—</strong><span>kg CO₂e / month</span></div><div class="comparison-arrow">→</div><div><small>WITH CHANGES</small><strong id="futureScenario">—</strong><span>kg CO₂e / month</span></div></div><div class="bar-label"><span>Potential reduction</span><strong id="scenarioPercent">—</strong></div><div class="progress"><div id="progressBar"></div></div><p class="tiny-note">This is a hypothetical estimate based on the entered data and simplified factors.</p></div>
+    </section>
+
+    <div class="section-heading" id="recommendations"><div><div class="eyebrow">YOUR NEXT STEPS</div><h2>Personalized action plan</h2></div><span class="section-chip">03 / TAKE ACTION</span></div>
+    <section class="recommendations" id="tipsContainer"><div class="tip-card empty-tip"><div class="tip-icon">✧</div><div><h3>Your action plan will appear here</h3><p>Calculate your footprint to receive recommendations based on your lifestyle inputs.</p></div></div></section>
+
+    <footer><div class="footer-brand">carbon<span>wise</span></div><p>Built for SDG 13: Climate Action · Educational prototype</p><p class="disclaimer">Emission factors are illustrative estimates. Results are not an official carbon inventory.</p></footer>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
